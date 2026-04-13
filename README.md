@@ -61,8 +61,8 @@
 
 Ready to get your restaurant online? Message me and I'll send a **free custom mockup within 24 hours.**
 
-- 💬 WhatsApp: [0300-0000000](https://wa.me/923000000000)
-- 📧 Email: haider@example.com
+- 💬 WhatsApp: [0300-67256089](https://wa.me/923067256089)
+- 📧 Email: haider.ali.adeel@gmail.com
 - 📍 Based in Lahore, Pakistan
 
 ---
