@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizza Republic – Lahore's Craft Pizza</title>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#D62828;--orange:#F77F00;--yellow:#FCBF49;--green:#2D6A4F;--cream:#FFFBF5;--dark:#1A0A00;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,0.08);padding:1rem 5%;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Righteous',sans-serif;font-size:1.6rem;color:var(--red);text-decoration:none;display:flex;align-items:center;gap:0.5rem;}
+  .logo::before{content:'🍕';}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{font-size:0.85rem;font-weight:700;color:#666;text-decoration:none;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--red);}
+  .order-btn{padding:0.7rem 1.75rem;background:var(--red);color:#fff;font-weight:800;font-size:0.82rem;border-radius:50px;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;}
+  .order-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(214,40,40,0.35);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--dark);}
+
+  /* HERO */
+  .hero{min-height:100vh;padding:6rem 5% 4rem;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-20%;right:-15%;width:60%;aspect-ratio:1;background:radial-gradient(circle,rgba(252,191,73,0.2) 0%,transparent 70%);border-radius:50%;pointer-events:none;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:#FFF3E0;border:1.5px solid var(--orange);border-radius:50px;padding:0.4rem 1rem;font-size:0.75rem;font-weight:800;color:var(--orange);margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:0.05em;}
+  h1{font-family:'Righteous',sans-serif;font-size:clamp(3rem,6vw,5.5rem);line-height:1.05;color:var(--dark);margin-bottom:1.25rem;}
+  h1 .highlight{color:var(--red);}
+  .hero-sub{font-size:1rem;line-height:1.7;color:#666;max-width:460px;margin-bottom:2.5rem;font-weight:600;}
+  .hero-cta{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;}
+  .btn-main{display:inline-block;padding:1rem 2.5rem;background:var(--red);color:#fff;font-weight:800;font-size:0.9rem;border-radius:50px;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 15px rgba(214,40,40,0.3);}
+  .btn-main:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(214,40,40,0.4);}
+  .btn-sec{display:inline-block;padding:1rem 2rem;color:var(--dark);font-weight:700;font-size:0.85rem;text-decoration:none;border-bottom:2px solid var(--dark);transition:all 0.2s;}
+  .btn-sec:hover{border-color:var(--red);color:var(--red);}
+  .hero-img-wrap{position:relative;}
+  .pizza-circle{width:100%;max-width:520px;aspect-ratio:1;border-radius:50%;overflow:hidden;border:8px solid var(--yellow);margin:auto;position:relative;}
+  .pizza-circle img{width:100%;height:100%;object-fit:cover;}
+  .floating-badge{position:absolute;padding:0.75rem 1.25rem;border-radius:12px;font-weight:800;font-size:0.78rem;box-shadow:0 4px 20px rgba(0,0,0,0.15);animation:float 3s ease-in-out infinite;}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .badge-1{top:5%;right:-5%;background:var(--yellow);color:var(--dark);animation-delay:0s;}
+  .badge-2{bottom:15%;left:-5%;background:var(--red);color:#fff;animation-delay:1s;}
+  .badge-3{top:45%;right:-8%;background:#fff;color:var(--dark);border:2px solid var(--orange);animation-delay:2s;}
+
+  /* MENU SECTION */
+  .menu-sec{padding:5rem 5%;background:#fff;}
+  .sec-head{text-align:center;margin-bottom:3.5rem;}
+  .sec-tag{font-size:0.75rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:0.5rem;}
+  .sec-title{font-family:'Righteous',sans-serif;font-size:clamp(2rem,4vw,3rem);color:var(--dark);}
+  .pizza-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
+  .pizza-card{background:var(--cream);border-radius:20px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s;border:2px solid transparent;}
+  .pizza-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,0.1);border-color:var(--yellow);}
+  .pc-img{height:200px;overflow:hidden;position:relative;}
+  .pc-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+  .pizza-card:hover .pc-img img{transform:scale(1.08);}
+  .pc-tag{position:absolute;top:0.75rem;right:0.75rem;background:var(--red);color:#fff;font-size:0.65rem;font-weight:800;padding:0.3rem 0.75rem;border-radius:50px;letter-spacing:0.05em;text-transform:uppercase;}
+  .pc-body{padding:1.25rem;}
+  .pc-name{font-family:'Righteous',sans-serif;font-size:1.2rem;margin-bottom:0.4rem;}
+  .pc-desc{font-size:0.8rem;color:#888;line-height:1.6;margin-bottom:1rem;}
+  .pc-sizes{display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;}
+  .size-btn{padding:0.3rem 0.75rem;border:1.5px solid #ddd;border-radius:50px;font-size:0.72rem;font-weight:700;cursor:pointer;transition:all 0.2s;background:transparent;color:var(--dark);}
+  .size-btn.active,.size-btn:hover{border-color:var(--red);color:var(--red);}
+  .pc-footer{display:flex;justify-content:space-between;align-items:center;}
+  .pc-price{font-family:'Righteous',sans-serif;font-size:1.2rem;color:var(--red);}
+  .add-btn{width:36px;height:36px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 0.2s;}
+  .add-btn:hover{transform:scale(1.15);}
+
+  /* WHY US */
+  .why{padding:5rem 5%;background:var(--dark);color:#fff;}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem;}
+  .why-card{background:#1f1000;padding:2rem;border-radius:16px;text-align:center;border:1px solid #2a1500;transition:border-color 0.3s;}
+  .why-card:hover{border-color:var(--orange);}
+  .why-icon{font-size:2.5rem;margin-bottom:1rem;}
+  .why-card h3{font-family:'Righteous',sans-serif;font-size:1.1rem;color:var(--yellow);margin-bottom:0.5rem;}
+  .why-card p{font-size:0.82rem;color:#888;line-height:1.6;}
+
+  /* CONTACT */
+  .contact{padding:5rem 5%;background:var(--red);}
+  .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .contact h2{font-family:'Righteous',sans-serif;font-size:clamp(2.5rem,5vw,4rem);color:#fff;margin-bottom:1rem;}
+  .contact p{color:rgba(255,255,255,0.8);font-size:0.95rem;line-height:1.7;margin-bottom:2rem;}
+  .contact-links{display:flex;flex-direction:column;gap:1rem;}
+  .clink{display:flex;align-items:center;gap:1rem;color:#fff;text-decoration:none;font-weight:700;font-size:0.9rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.2);}
+  .clink:last-child{border-bottom:none;}
+  .clink-icon{font-size:1.3rem;width:40px;height:40px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .map-ph{background:rgba(0,0,0,0.15);height:300px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-weight:700;}
+
+  footer{background:var(--dark);text-align:center;padding:2rem;font-size:0.78rem;color:#444;font-weight:700;}
+
+  @media(max-width:900px){
+    .hero,.contact-inner{grid-template-columns:1fr;}
+    .hero{padding-top:6rem;}
+    .pizza-circle{max-width:80vw;}
+    .nav-links,.order-btn{display:none;}
+    .hamburger{display:flex;}
+  }
+  @media(max-width:500px){
+    .hero-cta{flex-direction:column;align-items:flex-start;}
+    .floating-badge{display:none;}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo">Pizza Republic</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Find Us</a></li>
+  </ul>
+  <a href="https://wa.me/923000000000" class="order-btn">🛵 Order Now</a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">🔥 Lahore's hottest pizza spot</div>
+    <h1>Seriously<br>Good <span class="highlight">Pizza.</span><br>Always.</h1>
+    <p class="hero-sub">Hand-stretched dough, premium toppings, wood-fired in our stone oven. No frozen shortcuts — just pure, honest pizza.</p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn-main">🍕 See the Menu</a>
+      <a href="https://wa.me/923000000000" class="btn-sec">Order on WhatsApp →</a>
+    </div>
+  </div>
+  <div class="hero-img-wrap">
+    <div class="pizza-circle"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="Pizza"></div>
+    <div class="floating-badge badge-1">🔥 Stone Oven</div>
+    <div class="floating-badge badge-2">⭐ 4.8 Stars</div>
+    <div class="floating-badge badge-3">🛵 30 Min Delivery</div>
+  </div>
+</section>
+
+<section id="menu" class="menu-sec">
+  <div class="sec-head">
+    <div class="sec-tag">Our Specialties</div>
+    <h2 class="sec-title">The Pizza Menu</h2>
+  </div>
+  <div class="pizza-grid">
+    <div class="pizza-card">
+      <div class="pc-img"><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&q=80" alt="Margherita"><div class="pc-tag">Classic</div></div>
+      <div class="pc-body"><div class="pc-name">Classic Margherita</div><div class="pc-desc">San Marzano tomatoes, fresh mozzarella, basil, olive oil</div><div class="pc-sizes"><button class="size-btn active">Small</button><button class="size-btn">Medium</button><button class="size-btn">Large</button></div><div class="pc-footer"><div class="pc-price">Rs. 850</div><button class="add-btn" onclick="alert('Added to cart!')">+</button></div></div>
+    </div>
+    <div class="pizza-card">
+      <div class="pc-img"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&q=80" alt="BBQ Chicken"><div class="pc-tag">🔥 Hot</div></div>
+      <div class="pc-body"><div class="pc-name">Lahori BBQ Chicken</div><div class="pc-desc">Spiced BBQ chicken, red onion, capsicum, cheddar, garlic mayo</div><div class="pc-sizes"><button class="size-btn active">Small</button><button class="size-btn">Medium</button><button class="size-btn">Large</button></div><div class="pc-footer"><div class="pc-price">Rs. 1,200</div><button class="add-btn" onclick="alert('Added to cart!')">+</button></div></div>
+    </div>
+    <div class="pizza-card">
+      <div class="pc-img"><img src="https://images.unsplash.com/photo-1552539618-7eec9b4d1796?w=400&q=80" alt="Pepperoni"><div class="pc-tag">Best Seller</div></div>
+      <div class="pc-body"><div class="pc-name">Double Pepperoni</div><div class="pc-desc">Loads of pepperoni, mozzarella, chilli flakes, honey drizzle</div><div class="pc-sizes"><button class="size-btn active">Small</button><button class="size-btn">Medium</button><button class="size-btn">Large</button></div><div class="pc-footer"><div class="pc-price">Rs. 1,350</div><button class="add-btn" onclick="alert('Added to cart!')">+</button></div></div>
+    </div>
+    <div class="pizza-card">
+      <div class="pc-img"><img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=400&q=80" alt="Veggie"><div class="pc-tag">Veggie</div></div>
+      <div class="pc-body"><div class="pc-name">Garden Supreme</div><div class="pc-desc">Roasted peppers, mushrooms, olives, spinach, goat cheese</div><div class="pc-sizes"><button class="size-btn active">Small</button><button class="size-btn">Medium</button><button class="size-btn">Large</button></div><div class="pc-footer"><div class="pc-price">Rs. 1,100</div><button class="add-btn" onclick="alert('Added to cart!')">+</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="why">
+  <div style="text-align:center;"><div class="sec-tag" style="color:var(--yellow);">Why Pizza Republic?</div><h2 class="sec-title" style="color:#fff;">We Do Pizza <span style="color:var(--yellow)">Right</span></h2></div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-icon">🫓</div><h3>Hand-Stretched Dough</h3><p>Made fresh every morning. Never frozen, never rushed.</p></div>
+    <div class="why-card"><div class="why-icon">🔥</div><h3>Stone-Fired Oven</h3><p>700°F stone oven. Perfect crust every single time.</p></div>
+    <div class="why-card"><div class="why-icon">🛵</div><h3>30-Min Delivery</h3><p>Hot, fresh, and fast across DHA, Gulberg & Cantt.</p></div>
+    <div class="why-card"><div class="why-icon">⭐</div><h3>4.8 on Google</h3><p>Rated Lahore's best pizza by 1,000+ happy customers.</p></div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <div>
+      <h2>Order or Visit Us</h2>
+      <p>Dine in, take away, or get it delivered hot to your door. We're open late, because pizza doesn't have a bedtime.</p>
+      <div class="contact-links">
+        <a href="https://wa.me/923000000000" class="clink"><div class="clink-icon">💬</div>WhatsApp: 0300-0000000</a>
+        <a href="#" class="clink"><div class="clink-icon">📍</div>MM Alam Road, Gulberg III, Lahore</a>
+        <a href="#" class="clink"><div class="clink-icon">⏰</div>Daily: 12pm – 2am</a>
+      </div>
+    </div>
+    <div class="map-ph">📍 Google Map Embed Here</div>
+  </div>
+</section>
+
+<footer>© 2024 Pizza Republic · Lahore · 🍕 Life is short, eat more pizza</footer>
+
+<script>
+  document.querySelectorAll('.size-btn').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      this.closest('.pc-sizes').querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  document.querySelector('.hamburger').addEventListener('click',function(){
+    const links=document.querySelector('.nav-links');
+    if(links.style.display==='flex'){links.style.display='none';}
+    else{links.style.cssText='display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#fff;padding:1rem 5%;gap:1rem;box-shadow:0 4px 20px rgba(0,0,0,0.08);';}
+  });
+</script>
+</body>
+</html>

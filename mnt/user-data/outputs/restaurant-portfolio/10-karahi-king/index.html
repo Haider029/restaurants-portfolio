@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karahi King – Lahore's Original Karahi</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{--king:#B5181D;--gold:#F0A500;--char:#111;--off:#FAFAFA;--smoke:#1C1C1C;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Barlow',sans-serif;background:var(--off);color:var(--char);overflow-x:hidden;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--king);padding:1rem 5%;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Anton',sans-serif;font-size:1.8rem;color:#fff;text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;display:flex;align-items:center;gap:0.6rem;}
+  .logo .crown{font-size:1.5rem;}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--gold);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{display:block;width:22px;height:2px;background:#fff;}
+
+  /* HERO */
+  .hero{min-height:100vh;background:var(--smoke);display:grid;grid-template-columns:1fr 1fr;align-items:stretch;}
+  .hero-left{background:var(--king);padding:6rem 8% 4rem;display:flex;flex-direction:column;justify-content:center;clip-path:polygon(0 0,92% 0,100% 100%,0 100%);position:relative;z-index:2;}
+  .hero-left::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+  .year-badge{display:inline-block;border:2px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.7);font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;padding:0.4rem 1rem;margin-bottom:2rem;position:relative;z-index:2;}
+  h1{font-family:'Anton',sans-serif;font-size:clamp(3.5rem,7vw,6.5rem);color:#fff;line-height:0.9;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:0.5rem;position:relative;z-index:2;}
+  h1 .line2{color:var(--gold);display:block;font-size:clamp(4rem,8vw,7.5rem);}
+  .hero-sub{font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:400px;margin:1.5rem 0 2.5rem;position:relative;z-index:2;font-style:italic;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2;}
+  .btn-gold{display:inline-block;padding:1rem 2.5rem;background:var(--gold);color:var(--char);font-weight:700;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;}
+  .btn-gold:hover{background:#d4900a;transform:translateY(-2px);}
+  .btn-border{display:inline-block;padding:1rem 2rem;background:transparent;color:#fff;font-weight:700;font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.4);transition:all 0.3s;}
+  .btn-border:hover{border-color:#fff;}
+  .hero-right{position:relative;overflow:hidden;}
+  .hero-right img{width:100%;height:100%;object-fit:cover;filter:brightness(0.8) saturate(1.3);}
+  .hero-right::after{content:'SINCE 1978';position:absolute;top:2rem;right:2rem;background:var(--gold);color:var(--char);font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:0.1em;padding:0.75rem 1rem;line-height:1;}
+
+  /* KING SECTION */
+  .king-bar{background:var(--gold);padding:1rem 5%;display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap;}
+  .kb-item{font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:0.1em;color:var(--char);display:flex;align-items:center;gap:0.5rem;}
+  .kb-sep{color:var(--king);font-size:1.2rem;}
+
+  /* KARAHI TYPES */
+  .karahis{padding:5rem 5%;background:#fff;}
+  .section-tag{font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--king);margin-bottom:0.75rem;}
+  .section-h{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:0.03em;text-transform:uppercase;line-height:1;margin-bottom:3rem;}
+  .karahi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0;}
+  .karahi-card{border:1px solid #eee;position:relative;overflow:hidden;transition:transform 0.3s;}
+  .karahi-card:hover{transform:scale(1.02);z-index:2;}
+  .kc-img{height:220px;overflow:hidden;}
+  .kc-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;}
+  .karahi-card:hover .kc-img img{transform:scale(1.1);}
+  .kc-body{padding:1.5rem;border-top:3px solid var(--king);}
+  .kc-name{font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:0.4rem;}
+  .kc-desc{font-size:0.82rem;color:#777;line-height:1.6;margin-bottom:1rem;}
+  .kc-footer{display:flex;justify-content:space-between;align-items:center;}
+  .kc-price{font-family:'Anton',sans-serif;font-size:1.4rem;color:var(--king);}
+  .kc-per{font-size:0.7rem;color:#aaa;display:block;font-family:'Barlow',sans-serif;}
+  .kc-order{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--king);text-decoration:none;border-bottom:2px solid var(--king);padding-bottom:2px;transition:color 0.2s;}
+  .kc-order:hover{color:var(--gold);border-color:var(--gold);}
+
+  /* PROCESS */
+  .process{padding:5rem 5%;background:var(--smoke);color:#fff;}
+  .process h2{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,5vw,4rem);text-transform:uppercase;letter-spacing:0.03em;margin-bottom:3.5rem;}
+  .process h2 span{color:var(--gold);}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .step{padding:2.5rem;border-right:1px solid #2a2a2a;position:relative;}
+  .step:last-child{border-right:none;}
+  .step-num{font-family:'Anton',sans-serif;font-size:5rem;color:var(--king);opacity:0.3;line-height:1;margin-bottom:0.5rem;}
+  .step-title{font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:0.05em;text-transform:uppercase;color:#fff;margin-bottom:0.75rem;}
+  .step-desc{font-size:0.82rem;color:#777;line-height:1.6;font-weight:400;}
+
+  /* VISIT */
+  .visit{padding:5rem 5%;background:var(--king);color:#fff;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .visit h2{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);text-transform:uppercase;letter-spacing:0.03em;line-height:1;margin-bottom:1.5rem;}
+  .visit h2 span{color:var(--gold);}
+  .visit-info{display:flex;flex-direction:column;gap:1.25rem;}
+  .vi-row{display:flex;gap:1.25rem;align-items:flex-start;}
+  .vi-num{font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--gold);line-height:1;min-width:40px;}
+  .vi-text{font-size:0.88rem;color:rgba(255,255,255,0.85);line-height:1.6;}
+  .vi-text strong{display:block;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:0.2rem;}
+  .map-ph{background:rgba(0,0,0,0.2);height:350px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);font-family:'Anton',sans-serif;letter-spacing:0.15em;text-transform:uppercase;}
+  .wa-king{display:inline-flex;align-items:center;gap:0.75rem;margin-top:2rem;padding:1rem 2.5rem;background:#25D366;color:#fff;font-family:'Anton',sans-serif;font-size:0.9rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;}
+  .wa-king:hover{opacity:0.85;}
+
+  footer{background:var(--char);text-align:center;padding:2rem;font-size:0.72rem;color:#444;font-family:'Anton',sans-serif;letter-spacing:0.2em;text-transform:uppercase;}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;}
+    .hero-left{clip-path:none;padding:6rem 5% 3rem;}
+    .hero-right{height:55vw;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .step{border-right:none;border-bottom:1px solid #2a2a2a;}
+    .visit{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+  }
+  @media(max-width:500px){
+    .hero-btns{flex-direction:column;}
+    .steps{grid-template-columns:1fr;}
+    .king-bar{gap:1.5rem;}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo"><span class="crown">👑</span>Karahi King</a>
+  <ul class="nav-links">
+    <li><a href="#karahis">Menu</a></li>
+    <li><a href="#process">Our Process</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="year-badge">Est. 1978 · Lahore's Original</div>
+    <h1>THE<span class="line2">KING</span>OF KARAHI.</h1>
+    <p class="hero-sub">46 years. One recipe. No shortcuts. If you've never had our mutton karahi, you haven't really been to Lahore.</p>
+    <div class="hero-btns">
+      <a href="#karahis" class="btn-gold">View Full Menu</a>
+      <a href="https://wa.me/923000000000" class="btn-border">Order Now</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=800&q=80" alt="Karahi">
+  </div>
+</section>
+
+<div class="king-bar">
+  <div class="kb-item">👑 Est. 1978</div>
+  <div class="kb-sep">✦</div>
+  <div class="kb-item">🔥 Wood Fire Only</div>
+  <div class="kb-sep">✦</div>
+  <div class="kb-item">⭐ 4.9 Google</div>
+  <div class="kb-sep">✦</div>
+  <div class="kb-item">🫙 Secret Masala</div>
+  <div class="kb-sep">✦</div>
+  <div class="kb-item">📍 3 Locations</div>
+</div>
+
+<section id="karahis" class="karahis">
+  <div class="section-tag">Our Specialties</div>
+  <h2 class="section-h">The Royal Menu</h2>
+  <div class="karahi-grid">
+    <div class="karahi-card">
+      <div class="kc-img"><img src="https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=500&q=80" alt="Mutton Karahi"></div>
+      <div class="kc-body"><div class="kc-name">Mutton Karahi</div><div class="kc-desc">Our 46-year-old recipe. Tomato, ginger, and our secret masala blend. The one people drive across Lahore for.</div><div class="kc-footer"><div><div class="kc-price">Rs. 3,500</div><span class="kc-per">per kilogram</span></div><a href="https://wa.me/923000000000" class="kc-order">Order →</a></div></div>
+    </div>
+    <div class="karahi-card">
+      <div class="kc-img"><img src="https://images.unsplash.com/photo-1631452180519-c014ea1de2b4?w=500&q=80" alt="Chicken Karahi"></div>
+      <div class="kc-body"><div class="kc-name">Chicken Karahi</div><div class="kc-desc">Farm-fresh chicken, red or white gravy, cooked on wood fire in the iron karahi. Ready in 20 minutes.</div><div class="kc-footer"><div><div class="kc-price">Rs. 1,600</div><span class="kc-per">per kilogram</span></div><a href="https://wa.me/923000000000" class="kc-order">Order →</a></div></div>
+    </div>
+    <div class="karahi-card">
+      <div class="kc-img"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&q=80" alt="Lamb Chops"></div>
+      <div class="kc-body"><div class="kc-name">Lamb Chops</div><div class="kc-desc">Bone-in lamb chops, slow marinated, seared on the iron tawa. Served with naan and chutney.</div><div class="kc-footer"><div><div class="kc-price">Rs. 4,500</div><span class="kc-per">per kilogram</span></div><a href="https://wa.me/923000000000" class="kc-order">Order →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="process">
+  <h2>How We <span>Cook</span></h2>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Fresh Sourced</div><div class="step-desc">Meat sourced every morning from our trusted suppliers. Never day-old, never frozen.</div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">Secret Masala</div><div class="step-desc">A blend unchanged since 1978. Ground fresh daily. The recipe lives in three people's heads only.</div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Iron Karahi</div><div class="step-desc">Heavy iron karahis, seasoned over 46 years. The metal itself is part of the flavour.</div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-title">Wood Fire</div><div class="step-desc">Pure wood fire, not gas. The smoke is the seasoning. This is why it tastes different.</div></div>
+  </div>
+</section>
+
+<section id="visit" class="visit">
+  <div>
+    <h2>Long Live<br>The <span>King.</span></h2>
+    <div class="visit-info">
+      <div class="vi-row"><div class="vi-num">📍</div><div class="vi-text"><strong>Main Location</strong>Near McLeod Road, Old Lahore<br>Also in DHA & Johar Town</div></div>
+      <div class="vi-row"><div class="vi-num">⏰</div><div class="vi-text"><strong>Hours</strong>Open Daily: 12pm – 2am<br>Last order 1:30am</div></div>
+      <div class="vi-row"><div class="vi-num">📞</div><div class="vi-text"><strong>Phone & WhatsApp</strong>0300-0000000</div></div>
+    </div>
+    <a href="https://wa.me/923000000000" class="wa-king">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.112 1.524 5.842L0 24l6.338-1.499A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 01-5.001-1.37l-.36-.214-3.729.882.936-3.618-.235-.372A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      WhatsApp Order
+    </a>
+  </div>
+  <div class="map-ph">📍 Google Map Embed Here</div>
+</section>
+
+<footer>© 2024 Karahi King · Est. 1978 · Lahore · The Crown Never Falls</footer>
+
+<script>
+  document.querySelector('.hamburger').addEventListener('click',function(){
+    const links=document.querySelector('.nav-links');
+    if(links.style.display==='flex'){links.style.display='none';}
+    else{links.style.cssText='display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--king);padding:1rem 5%;gap:1rem;';}
+  });
+</script>
+</body>
+</html>

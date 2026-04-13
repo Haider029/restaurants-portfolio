@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saffron – Modern Pakistani Fine Dining</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--saffron:#D4AC0D;--deep:#0E0C09;--ivory:#FAF8F3;--taupe:#8C7B6B;--rose:#C5785A;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Jost',sans-serif;background:var(--ivory);color:var(--deep);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(250,248,243,0.96);backdrop-filter:blur(8px);}
+  .logo{font-family:'Libre Baskerville',serif;font-size:1.5rem;color:var(--deep);text-decoration:none;}
+  .logo span{color:var(--saffron);}
+  .nav-center{display:flex;gap:3rem;list-style:none;}
+  .nav-center a{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);text-decoration:none;transition:color 0.2s;}
+  .nav-center a:hover{color:var(--deep);}
+  .nav-right a{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.65rem 1.75rem;border:1px solid var(--deep);color:var(--deep);text-decoration:none;transition:all 0.3s;}
+  .nav-right a:hover{background:var(--deep);color:var(--ivory);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{display:block;width:22px;height:1px;background:var(--deep);}
+
+  /* HERO – editorial split */
+  .hero{min-height:100vh;display:grid;grid-template-columns:5fr 6fr;padding-top:5rem;}
+  .hero-left{padding:5rem 5% 5rem 5%;display:flex;flex-direction:column;justify-content:center;background:var(--deep);color:var(--ivory);}
+  .hero-label{font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--saffron);margin-bottom:2rem;display:flex;align-items:center;gap:0.75rem;}
+  .hero-label::after{content:'';flex:1;height:1px;background:var(--saffron);max-width:40px;}
+  h1{font-family:'Libre Baskerville',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:400;line-height:1.1;margin-bottom:2rem;}
+  h1 i{color:var(--saffron);font-style:italic;}
+  .hero-sub{font-size:0.9rem;line-height:1.8;color:#888;max-width:380px;margin-bottom:3rem;font-weight:300;}
+  .hero-actions{display:flex;flex-direction:column;gap:1rem;align-items:flex-start;}
+  .btn-saffron{display:inline-block;padding:1rem 2.5rem;background:var(--saffron);color:var(--deep);font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;text-decoration:none;transition:opacity 0.2s;}
+  .btn-saffron:hover{opacity:0.85;}
+  .btn-text{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#666;text-decoration:none;border-bottom:1px solid #444;padding-bottom:2px;transition:color 0.2s;}
+  .btn-text:hover{color:var(--saffron);border-color:var(--saffron);}
+  .hero-right{position:relative;overflow:hidden;}
+  .hero-right img{width:100%;height:100%;object-fit:cover;}
+  .hero-overlay-text{position:absolute;bottom:2rem;right:2rem;background:var(--saffron);padding:1.5rem;color:var(--deep);font-family:'Libre Baskerville',serif;text-align:center;}
+  .hero-overlay-text .big{font-size:2.5rem;font-weight:700;line-height:1;}
+  .hero-overlay-text .small{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;margin-top:0.3rem;font-family:'Jost',sans-serif;}
+
+  /* PHILOSOPHY */
+  .philosophy{padding:6rem 5%;text-align:center;max-width:800px;margin:0 auto;}
+  .phil-decor{color:var(--saffron);font-size:2rem;margin-bottom:1.5rem;}
+  .phil-text{font-family:'Libre Baskerville',serif;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;line-height:1.6;color:var(--deep);font-style:italic;}
+  .phil-author{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-top:2rem;}
+
+  /* MENU */
+  .menu{padding:5rem 5%;background:var(--deep);color:var(--ivory);}
+  .menu-header{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:4rem;align-items:flex-end;}
+  .menu-header h2{font-family:'Libre Baskerville',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.2;}
+  .menu-header h2 i{color:var(--saffron);}
+  .menu-header p{color:#666;font-size:0.9rem;line-height:1.7;font-weight:300;}
+  .menu-courses{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .course{background:#151310;padding:2.5rem;}
+  .course-num{font-family:'Libre Baskerville',serif;font-size:3rem;color:var(--saffron);opacity:0.3;line-height:1;margin-bottom:0.5rem;}
+  .course-name{font-family:'Libre Baskerville',serif;font-size:1.1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #2a2a2a;}
+  .dish{margin-bottom:1.25rem;}
+  .dish-name{font-size:0.95rem;margin-bottom:0.2rem;}
+  .dish-desc{font-size:0.75rem;color:#666;line-height:1.5;font-weight:300;}
+  .dish-price{font-size:0.8rem;color:var(--saffron);margin-top:0.3rem;}
+
+  /* GALLERY */
+  .gallery{padding:5rem 5%;background:var(--ivory);}
+  .gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:300px 300px;gap:4px;margin-top:3rem;}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;transition:filter 0.4s;}
+  .gallery-grid img:hover{filter:saturate(1.2);}
+  .gallery-grid img:first-child{grid-row:1/3;}
+
+  /* BOOKING */
+  .booking{padding:6rem 5%;background:var(--deep);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .booking h2{font-family:'Libre Baskerville',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;color:var(--ivory);line-height:1.2;}
+  .booking h2 i{color:var(--saffron);}
+  .booking p{color:#666;font-size:0.9rem;line-height:1.7;margin-top:1.5rem;font-weight:300;}
+  .booking-info{display:flex;flex-direction:column;gap:1.5rem;}
+  .book-item{display:flex;gap:1.5rem;align-items:flex-start;}
+  .book-icon{width:40px;height:40px;background:rgba(212,172,13,0.12);border:1px solid rgba(212,172,13,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;}
+  .book-text h4{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--saffron);margin-bottom:0.4rem;}
+  .book-text p{font-size:0.88rem;color:#888;line-height:1.5;font-weight:300;}
+  .book-cta{display:inline-flex;align-items:center;gap:0.75rem;margin-top:2rem;padding:1rem 2.5rem;background:var(--saffron);color:var(--deep);font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;text-decoration:none;transition:opacity 0.2s;}
+  .book-cta:hover{opacity:0.85;}
+
+  footer{background:#060503;text-align:center;padding:2rem;font-size:0.7rem;color:#333;letter-spacing:0.15em;text-transform:uppercase;font-family:'Jost',sans-serif;}
+
+  @media(max-width:1000px){
+    .hero{grid-template-columns:1fr;}
+    .hero-left{min-height:60vh;}
+    .hero-right{height:50vw;}
+    .menu-courses{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+    .gallery-grid img:first-child{grid-row:auto;grid-column:1/-1;height:250px;}
+    .booking{grid-template-columns:1fr;}
+    .menu-header{grid-template-columns:1fr;}
+    .nav-center,.nav-right{display:none;}
+    .hamburger{display:flex;}
+  }
+  @media(max-width:500px){
+    .gallery-grid{grid-template-columns:1fr;}
+    .gallery-grid img{height:200px;}
+    .gallery-grid img:first-child{height:250px;}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo">Saffron<span>·</span></a>
+  <ul class="nav-center">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#booking">Reserve</a></li>
+  </ul>
+  <div class="nav-right"><a href="#booking">Book a Table</a></div>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-label">Modern Pakistani Cuisine</div>
+    <h1>Food as<br><i>Art.</i><br>Heritage<br>Reimagined.</h1>
+    <p class="hero-sub">Lahore's most celebrated contemporary Pakistani restaurant. Classic techniques, heirloom spices, and a story on every plate.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-saffron">Explore the Menu</a>
+      <a href="#booking" class="btn-text">Reserve Your Table →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80" alt="Plated dish">
+    <div class="hero-overlay-text">
+      <div class="big">★ 4.9</div>
+      <div class="small">Google Rating<br>500+ Reviews</div>
+    </div>
+  </div>
+</section>
+
+<div class="philosophy">
+  <div class="phil-decor">✦</div>
+  <p class="phil-text">"Every spice in our kitchen carries a memory. Every dish we serve carries a story from the soil of Pakistan."</p>
+  <p class="phil-author">— Chef Zara Khalid, Executive Chef</p>
+</div>
+
+<section id="menu" class="menu">
+  <div class="menu-header">
+    <h2>A Journey Through<br><i>Pakistan's Flavours</i></h2>
+    <p>Our tasting menu changes with the seasons, honouring regional traditions from Lahore to Balochistan. Each dish pairs classical techniques with the finest local produce.</p>
+  </div>
+  <div class="menu-courses">
+    <div class="course">
+      <div class="course-num">01</div>
+      <div class="course-name">Amuse Bouche</div>
+      <div class="dish"><div class="dish-name">Chaat Sphere</div><div class="dish-desc">Tamarind gel, pomegranate, yoghurt foam</div><div class="dish-price">Complimentary</div></div>
+      <div class="dish"><div class="dish-name">Tandoor Toast</div><div class="dish-desc">Smoked butter, dried figs, honey drizzle</div><div class="dish-price">Complimentary</div></div>
+    </div>
+    <div class="course">
+      <div class="course-num">02</div>
+      <div class="course-name">Entrée</div>
+      <div class="dish"><div class="dish-name">Deconstructed Nihari</div><div class="dish-desc">48hr slow-cooked short rib, marrow butter, micro herbs</div><div class="dish-price">Rs. 2,800</div></div>
+      <div class="dish"><div class="dish-name">Sindhi Biryani Risotto</div><div class="dish-desc">Aged basmati, saffron, crispy lamb</div><div class="dish-price">Rs. 2,400</div></div>
+    </div>
+    <div class="course">
+      <div class="course-num">03</div>
+      <div class="course-name">Dessert</div>
+      <div class="dish"><div class="dish-name">Gulab Jamun Soufflé</div><div class="dish-desc">Rose syrup, cardamom cream anglaise</div><div class="dish-price">Rs. 1,200</div></div>
+      <div class="dish"><div class="dish-name">Rabri Panna Cotta</div><div class="dish-desc">Pistachios, gold leaf, saffron tuile</div><div class="dish-price">Rs. 1,100</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" class="gallery">
+  <div class="section-tag" style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:0.75rem;">The Experience</div>
+  <h2 style="font-family:'Libre Baskerville',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:400;">A Feast for the Eyes</h2>
+  <div class="gallery-grid">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Restaurant">
+    <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3df5?w=400&q=80" alt="Dish">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80" alt="Food">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" alt="Interior">
+    <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=400&q=80" alt="Table">
+  </div>
+</section>
+
+<section id="booking" class="booking">
+  <div>
+    <h2>Reserve Your<br><i>Evening.</i></h2>
+    <p>Saffron seats only 40 guests per evening. Reservations are strongly recommended and appreciated.</p>
+  </div>
+  <div class="booking-info">
+    <div class="book-item"><div class="book-icon">📍</div><div class="book-text"><h4>Location</h4><p>22-C, Main Boulevard<br>Gulberg III, Lahore</p></div></div>
+    <div class="book-item"><div class="book-icon">⏰</div><div class="book-text"><h4>Dinner Only</h4><p>Tuesday – Sunday<br>7:00 PM – 11:00 PM</p></div></div>
+    <div class="book-item"><div class="book-icon">📞</div><div class="book-text"><h4>Reservations</h4><p>0300-0000000<br>WhatsApp preferred</p></div></div>
+    <a href="https://wa.me/923000000000" class="book-cta">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.112 1.524 5.842L0 24l6.338-1.499A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 01-5.001-1.37l-.36-.214-3.729.882.936-3.618-.235-.372A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      Reserve via WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>© 2024 Saffron Restaurant · Lahore · Contemporary Pakistani Cuisine</footer>
+
+<script>
+  document.querySelector('.hamburger').addEventListener('click',function(){
+    const nc=document.querySelector('.nav-center');
+    if(nc.style.display==='flex'){nc.style.display='none';}
+    else{nc.style.cssText='display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,248,243,0.98);padding:1.5rem 5%;gap:1.5rem;border-bottom:1px solid #eee;';}
+  });
+</script>
+</body>
+</html>

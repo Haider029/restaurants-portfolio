@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haider Ali – Restaurant Web Design Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --surface: #141414;
+    --border: #222;
+    --text: #FAFAFA;
+    --muted: #666;
+    --accent: #FF5C35;
+    --accent2: #FFB800;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+  /* HEADER */
+  header {
+    padding: 5rem 6% 4rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,92,53,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,92,53,0.1);
+    border: 1px solid rgba(255,92,53,0.25);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    max-width: 700px;
+    margin-bottom: 1.25rem;
+  }
+  h1 span { color: var(--accent); }
+  .header-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 550px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+  .header-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .meta-item strong {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .meta-item span {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+    display: block;
+  }
+  .cta-bar {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* FILTERS */
+  .filters {
+    padding: 2rem 6%;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .filter-btn {
+    padding: 0.45rem 1.1rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    padding: 1px;
+  }
+  .card {
+    background: var(--surface);
+    overflow: hidden;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+  }
+  .card:hover { background: #1c1c1c; }
+  .card-img {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+  }
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+    filter: brightness(0.85);
+  }
+  .card:hover .card-img img { transform: scale(1.05); filter: brightness(1); }
+  .card-type {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 50px;
+  }
+  .card-num {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+    font-family: 'Inter', monospace;
+  }
+  .card-body { padding: 1.5rem; }
+  .card-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    transition: color 0.2s;
+  }
+  .card:hover .card-name { color: var(--accent); }
+  .card-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+  .card-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .card-palette {
+    display: flex;
+    gap: 4px;
+  }
+  .swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .view-link {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap 0.2s;
+  }
+  .card:hover .view-link { gap: 0.6rem; }
+
+  /* ABOUT */
+  .about {
+    padding: 5rem 6%;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  .about h2 span { color: var(--accent); }
+  .about p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+  .services {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .service {
+    padding: 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s;
+  }
+  .service:hover { border-color: var(--accent); }
+  .service-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+  .service h4 { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .service p { font-size: 0.75rem; color: var(--muted); line-height: 1.5; font-weight: 300; }
+  .pricing-teaser {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+  }
+  .pricing-teaser h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .pricing-teaser .sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 2rem; }
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row .plan { font-size: 0.85rem; font-weight: 600; }
+  .price-row .desc { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+  .price-row .amount { font-size: 1.1rem; font-weight: 700; color: var(--accent2); white-space: nowrap; margin-left: 1rem; }
+
+  /* CONTACT */
+  .contact {
+    padding: 4rem 6%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    background: var(--surface);
+  }
+  .contact-text h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .contact-text p { font-size: 0.85rem; color: var(--muted); }
+  .contact-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  footer {
+    padding: 2rem 6%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 900px) {
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .grid { grid-template-columns: 1fr; }
+    .card-img { height: 200px; }
+  }
+  @media (max-width: 600px) {
+    header { padding: 4rem 5% 3rem; }
+    .filters, .about, .contact, footer { padding-left: 5%; padding-right: 5%; }
+    .grid { padding: 0; }
+    .services { grid-template-columns: 1fr; }
+    .header-meta { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">✦ Web Design Portfolio · Lahore, Pakistan</div>
+  <h1>Restaurant Websites That <span>Actually Get</span> You Customers.</h1>
+  <p class="header-sub">I build fast, beautiful, mobile-first websites for Lahore restaurants, dhabas, cafes, and eateries. Every mockup below was built from scratch — your restaurant could look like this.</p>
+  <div class="header-meta">
+    <div class="meta-item"><strong>10</strong><span>Live Demos</span></div>
+    <div class="meta-item"><strong>5+</strong><span>Restaurant Types</span></div>
+    <div class="meta-item"><strong>48hr</strong><span>Turnaround</span></div>
+    <div class="meta-item"><strong>Rs. 15k</strong><span>Starting Price</span></div>
+  </div>
+  <div class="cta-bar">
+    <a href="https://wa.me/923000000000" class="btn-primary">💬 WhatsApp Me</a>
+    <a href="#demos" class="btn-ghost">↓ See All Demos</a>
+  </div>
+</header>
+
+<div class="filters" id="demos">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All (10)</button>
+  <button class="filter-btn" onclick="filterCards('fine-dining', this)">Fine Dining</button>
+  <button class="filter-btn" onclick="filterCards('bbq', this)">BBQ</button>
+  <button class="filter-btn" onclick="filterCards('fast-food', this)">Fast Food</button>
+  <button class="filter-btn" onclick="filterCards('cafe', this)">Cafe</button>
+  <button class="filter-btn" onclick="filterCards('desi', this)">Desi / Dhaba</button>
+  <button class="filter-btn" onclick="filterCards('fusion', this)">Fusion</button>
+</div>
+
+<div class="grid" id="cardGrid">
+
+  <a href="1-salt-n-pepper/index.html" class="card" data-type="fine-dining" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=70" alt="Salt & Pepper">
+      <div class="card-type">Fine Dining</div>
+      <div class="card-num">#01</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Salt & Pepper</div>
+      <div class="card-desc">Luxury fine dining — cream & black palette, editorial layout, reservation-focused. Perfect for upscale restaurants.</div>
+      <div class="card-tags">
+        <span class="tag">Minimal Luxury</span>
+        <span class="tag">Dark Hero</span>
+        <span class="tag">Animated</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#F5F0E8;"></div>
+          <div class="swatch" style="background:#0D0D0D;"></div>
+          <div class="swatch" style="background:#C9A84C;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="2-chai-dhaba/index.html" class="card" data-type="desi" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=70" alt="Chai Dhaba">
+      <div class="card-type">Dhaba / Street Food</div>
+      <div class="card-num">#02</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Chai Dhaba</div>
+      <div class="card-desc">Warm saffron tones, zigzag dividers, daily specials grid. Authentic desi energy for street food & dhaba owners.</div>
+      <div class="card-tags">
+        <span class="tag">Warm & Bold</span>
+        <span class="tag">Daily Menu</span>
+        <span class="tag">WhatsApp CTA</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#E8700A;"></div>
+          <div class="swatch" style="background:#1C1008;"></div>
+          <div class="swatch" style="background:#FAF3E0;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="3-burger-lab/index.html" class="card" data-type="fast-food" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=70" alt="Burger Lab">
+      <div class="card-type">Fast Food / Burgers</div>
+      <div class="card-num">#03</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Burger Lab</div>
+      <div class="card-desc">Brutalist dark design with custom cursor, rotating logo ring, and interactive add-to-cart. High energy for young brands.</div>
+      <div class="card-tags">
+        <span class="tag">Brutalist</span>
+        <span class="tag">Custom Cursor</span>
+        <span class="tag">Interactive</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#FFE600;"></div>
+          <div class="swatch" style="background:#0A0A0A;"></div>
+          <div class="swatch" style="background:#E5262B;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="4-lahori-bbq/index.html" class="card" data-type="bbq" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=600&q=70" alt="Lahori BBQ">
+      <div class="card-type">BBQ</div>
+      <div class="card-num">#04</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Lahori BBQ</div>
+      <div class="card-desc">Fire & smoke theme, full-bleed hero with dark overlay, dramatic typography. Built for BBQ joints with legacy.</div>
+      <div class="card-tags">
+        <span class="tag">Fire Theme</span>
+        <span class="tag">Full Bleed Hero</span>
+        <span class="tag">Sticky Menu</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#FF4500;"></div>
+          <div class="swatch" style="background:#1A1A1A;"></div>
+          <div class="swatch" style="background:#FFF5E6;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="5-saffron-fine-dining/index.html" class="card" data-type="fine-dining" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=70" alt="Saffron">
+      <div class="card-type">Fine Dining</div>
+      <div class="card-num">#05</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Saffron Fine Dining</div>
+      <div class="card-desc">Editorial split hero, ivory/saffron palette, tasting menu layout. Elegant and refined for contemporary Pakistani cuisine.</div>
+      <div class="card-tags">
+        <span class="tag">Editorial Split</span>
+        <span class="tag">Serif Typography</span>
+        <span class="tag">Gallery</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#D4AC0D;"></div>
+          <div class="swatch" style="background:#0E0C09;"></div>
+          <div class="swatch" style="background:#FAF8F3;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="6-pizza-republic/index.html" class="card" data-type="fast-food" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=70" alt="Pizza Republic">
+      <div class="card-type">Fast Food / Pizza</div>
+      <div class="card-num">#06</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Pizza Republic</div>
+      <div class="card-desc">Playful rounded design with floating badges, size selector, and animated pizza circle. Fun and energetic for casual eateries.</div>
+      <div class="card-tags">
+        <span class="tag">Playful</span>
+        <span class="tag">Size Selector</span>
+        <span class="tag">Floating Badges</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#D62828;"></div>
+          <div class="swatch" style="background:#FCBF49;"></div>
+          <div class="swatch" style="background:#FFFBF5;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="7-desi-tadka/index.html" class="card" data-type="desi" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=70" alt="Desi Tadka">
+      <div class="card-type">Home-Style / Desi</div>
+      <div class="card-num">#07</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Desi Tadka</div>
+      <div class="card-desc">Warm mustard & maroon with Urdu tagline, daily menu board, collage hero. Perfect for home-style and family restaurants.</div>
+      <div class="card-tags">
+        <span class="tag">Urdu Text</span>
+        <span class="tag">Daily Menu</span>
+        <span class="tag">Warm Palette</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#E8B84B;"></div>
+          <div class="swatch" style="background:#8B1A1A;"></div>
+          <div class="swatch" style="background:#FEFAF4;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="8-brew-cafe/index.html" class="card" data-type="cafe" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=70" alt="Brew & Co.">
+      <div class="card-type">Specialty Cafe</div>
+      <div class="card-num">#08</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Brew & Co.</div>
+      <div class="card-desc">Monospace/editorial aesthetic, coffee-toned palette, workspace-focused layout. Built for specialty cafes and coffee shops.</div>
+      <div class="card-tags">
+        <span class="tag">Monospace</span>
+        <span class="tag">Editorial</span>
+        <span class="tag">Workspace Vibe</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#C49A6C;"></div>
+          <div class="swatch" style="background:#2C1503;"></div>
+          <div class="swatch" style="background:#FAF6F1;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="9-fusion-kitchen/index.html" class="card" data-type="fusion" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=70" alt="Fusion Kitchen">
+      <div class="card-type">Fusion</div>
+      <div class="card-num">#09</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Fusion Kitchen</div>
+      <div class="card-desc">Glassmorphism hero, teal/coral palette, scroll-triggered transparent nav. Sleek and modern for contemporary fusion spots.</div>
+      <div class="card-tags">
+        <span class="tag">Glassmorphism</span>
+        <span class="tag">Scroll Nav</span>
+        <span class="tag">Masonry Gallery</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#0E7C7B;"></div>
+          <div class="swatch" style="background:#FF6B6B;"></div>
+          <div class="swatch" style="background:#F8F4EF;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+  <a href="10-karahi-king/index.html" class="card" data-type="desi" target="_blank">
+    <div class="card-img">
+      <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=600&q=70" alt="Karahi King">
+      <div class="card-type">BBQ / Karahi</div>
+      <div class="card-num">#10</div>
+    </div>
+    <div class="card-body">
+      <div class="card-name">Karahi King</div>
+      <div class="card-desc">Bold industrial design, Anton typeface, process section, dramatic split hero. Maximum impact for heritage karahi restaurants.</div>
+      <div class="card-tags">
+        <span class="tag">Industrial Bold</span>
+        <span class="tag">Split Hero</span>
+        <span class="tag">Process Steps</span>
+      </div>
+      <div class="card-footer">
+        <div class="card-palette">
+          <div class="swatch" style="background:#B5181D;"></div>
+          <div class="swatch" style="background:#F0A500;"></div>
+          <div class="swatch" style="background:#111111;"></div>
+        </div>
+        <div class="view-link">View Demo →</div>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<section class="about">
+  <div>
+    <h2>Why Your Restaurant <span>Needs a Website</span></h2>
+    <p>When someone Googles your restaurant name — or any restaurant in your area — and you have no website, you lose them to a competitor who does. A website builds trust before the first bite.</p>
+    <p>I build single-page websites specifically for Lahore restaurants. Fast to load, mobile-first, WhatsApp-integrated, and designed to actually look like your brand — not a generic template.</p>
+    <div class="services">
+      <div class="service">
+        <div class="service-icon">📱</div>
+        <h4>Mobile-First</h4>
+        <p>Built for phones. 80% of your customers will see it on a phone.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">⚡</div>
+        <h4>Fast Setup</h4>
+        <p>Fully live in 48 hours. No long waits, no tech headaches.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">💬</div>
+        <h4>WhatsApp Ready</h4>
+        <p>One-click WhatsApp orders built into every page.</p>
+      </div>
+      <div class="service">
+        <div class="service-icon">🔄</div>
+        <h4>Monthly Updates</h4>
+        <p>Menu changes, offers, hours — I handle it on retainer.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pricing-teaser">
+    <h3>Simple Pricing</h3>
+    <p class="sub">No hidden fees. No surprise invoices. What you see is what you pay.</p>
+    <div class="price-row">
+      <div><div class="plan">Starter Website</div><div class="desc">Home page, menu, WhatsApp, map</div></div>
+      <div class="amount">Rs. 15,000</div>
+    </div>
+    <div class="price-row">
+      <div><div class="plan">Professional Website</div><div class="desc">Gallery, booking, animations, SEO</div></div>
+      <div class="amount">Rs. 22,000</div>
+    </div>
+    <div class="price-row">
+      <div><div class="plan">Monthly Care Plan</div><div class="desc">Updates, hosting management, support</div></div>
+      <div class="amount">Rs. 4,000/mo</div>
+    </div>
+    <a href="https://wa.me/923000000000" class="btn-primary" style="width:100%;justify-content:center;margin-top:1.5rem;">Get a Free Quote →</a>
+  </div>
+</section>
+
+<div class="contact">
+  <div class="contact-text">
+    <h3>Ready to get your restaurant online?</h3>
+    <p>Message me on WhatsApp and I'll send you a custom mockup within 24 hours — for free.</p>
+  </div>
+  <div class="contact-actions">
+    <a href="https://wa.me/923000000000" class="btn-primary">💬 WhatsApp Now</a>
+    <a href="mailto:haider@example.com" class="btn-ghost">✉ Email Me</a>
+  </div>
+</div>
+
+<footer>
+  <span>© 2024 Haider Ali · Web Designer · Lahore, Pakistan</span>
+  <span style="color:#333;">Built with HTML, CSS & a lot of chai ☕</span>
+</footer>
+
+<script>
+  function filterCards(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(card => {
+      if (type === 'all' || card.dataset.type === type) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>

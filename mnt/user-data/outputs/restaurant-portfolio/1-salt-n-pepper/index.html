@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salt & Pepper – Fine Dining Lahore</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --black: #0D0D0D;
+    --gold: #C9A84C;
+    --text: #2A2A2A;
+    --muted: #888;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 5%;
+    background: rgba(245,240,232,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    transition: all 0.3s;
+  }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.08em; color: var(--black); text-decoration: none; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-reserve { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.6rem 1.5rem; border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+  .nav-reserve:hover { background: var(--gold); color: var(--cream); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 1px; background: var(--black); transition: all 0.3s; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+    padding: 0 5%; padding-top: 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::after { content: ''; position: absolute; right: -10%; top: 0; width: 55%; height: 100%; background: var(--black); clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%); z-index: 0; }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-tag { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .hero-tag::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300; line-height: 1.1; color: var(--black); margin-bottom: 1.5rem; }
+  h1 em { font-style: italic; color: var(--gold); }
+  .hero-desc { font-size: 0.85rem; line-height: 1.9; color: var(--muted); max-width: 380px; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { padding: 0.85rem 2.5rem; background: var(--black); color: var(--cream); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border: none; cursor: pointer; text-decoration: none; transition: background 0.3s; display: inline-block; }
+  .btn-primary:hover { background: var(--gold); }
+  .btn-secondary { padding: 0.85rem 2.5rem; background: transparent; color: var(--black); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--black); cursor: pointer; text-decoration: none; transition: all 0.3s; display: inline-block; }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-img { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; }
+  .hero-img-inner { width: 100%; max-width: 480px; aspect-ratio: 3/4; background: #1a1a1a; position: relative; overflow: hidden; }
+  .hero-img-inner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+  .hero-badge { position: absolute; bottom: -1.5rem; left: -1.5rem; background: var(--gold); color: var(--black); padding: 1.2rem; text-align: center; font-family: 'Cormorant Garamond', serif; }
+  .hero-badge strong { display: block; font-size: 2rem; font-weight: 600; line-height: 1; }
+  .hero-badge span { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* SECTION SHARED */
+  section { padding: 6rem 5%; }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.2; margin-bottom: 2rem; }
+
+  /* MENU */
+  .menu { background: var(--black); color: var(--cream); }
+  .menu .section-title { color: var(--cream); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0; margin-top: 3rem; }
+  .menu-cat { padding: 2.5rem; border: 1px solid rgba(255,255,255,0.08); transition: border-color 0.3s; }
+  .menu-cat:hover { border-color: var(--gold); }
+  .menu-cat-name { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .menu-item { display: flex; justify-content: space-between; align-items: baseline; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--cream); }
+  .menu-item-desc { font-size: 0.72rem; color: #666; margin-top: 0.2rem; }
+  .menu-item-price { font-size: 0.8rem; color: var(--gold); white-space: nowrap; margin-left: 1rem; }
+
+  /* EXPERIENCE */
+  .experience { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .exp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .stat { border-left: 2px solid var(--gold); padding-left: 1.5rem; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--black); line-height: 1; }
+  .stat-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+  .exp-img { aspect-ratio: 4/5; background: #d0c8b8; overflow: hidden; }
+  .exp-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* CONTACT */
+  .contact { background: var(--black); color: var(--cream); text-align: center; }
+  .contact .section-title { color: var(--cream); margin-bottom: 0.5rem; }
+  .contact-sub { color: #666; font-size: 0.85rem; margin-bottom: 3rem; }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; max-width: 700px; margin: 0 auto 3rem; }
+  .contact-item h4 { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .contact-item p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.6; }
+  .whatsapp-btn { display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2.5rem; background: #25D366; color: white; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; transition: opacity 0.3s; }
+  .whatsapp-btn:hover { opacity: 0.85; }
+
+  /* FOOTER */
+  footer { background: #050505; color: #444; text-align: center; padding: 2rem; font-size: 0.72rem; letter-spacing: 0.1em; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 6rem; gap: 3rem; }
+    .hero::after { display: none; }
+    .hero-img-inner { max-width: 100%; aspect-ratio: 16/9; }
+    .experience { grid-template-columns: 1fr; }
+    nav { padding: 1rem 5%; }
+    .nav-links, .nav-reserve { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 500px) {
+    h1 { font-size: 2.5rem; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+    .exp-stats { grid-template-columns: 1fr; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-text > * { animation: fadeUp 0.8s ease forwards; }
+  .hero-tag { animation-delay: 0.1s; opacity: 0; }
+  h1 { animation-delay: 0.25s; opacity: 0; }
+  .hero-desc { animation-delay: 0.4s; opacity: 0; }
+  .hero-btns { animation-delay: 0.55s; opacity: 0; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Salt <span>&</span> Pepper</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/923000000000" class="nav-reserve">Reserve a Table</a>
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">Established 2009 · Lahore</div>
+    <h1>Where Every<br>Dish Tells a<br><em>Story.</em></h1>
+    <p class="hero-desc">An intimate fine dining experience in the heart of Lahore. Award-winning cuisine crafted from the finest ingredients, served in an atmosphere of quiet elegance.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-primary">View Menu</a>
+      <a href="#contact" class="btn-secondary">Reserve</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <div class="hero-img-inner">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine dining">
+    </div>
+    <div class="hero-badge">
+      <strong>15+</strong>
+      <span>Years of<br>Excellence</span>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="menu">
+  <div class="section-label">Our Offerings</div>
+  <h2 class="section-title">Curated Seasonal Menu</h2>
+  <div class="menu-grid">
+    <div class="menu-cat">
+      <div class="menu-cat-name">Starters</div>
+      <div class="menu-item"><div><div class="menu-item-name">Smoked Salmon Crostini</div><div class="menu-item-desc">Cream cheese, capers, dill</div></div><div class="menu-item-price">Rs. 950</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Wild Mushroom Soup</div><div class="menu-item-desc">Truffle oil, chive cream</div></div><div class="menu-item-price">Rs. 850</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Burrata Salad</div><div class="menu-item-desc">Heirloom tomatoes, basil oil</div></div><div class="menu-item-price">Rs. 1,100</div></div>
+    </div>
+    <div class="menu-cat">
+      <div class="menu-cat-name">Mains</div>
+      <div class="menu-item"><div><div class="menu-item-name">Grilled Tenderloin</div><div class="menu-item-desc">Asparagus, red wine jus</div></div><div class="menu-item-price">Rs. 3,800</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Sea Bass en Papillote</div><div class="menu-item-desc">Fennel, saffron butter</div></div><div class="menu-item-price">Rs. 3,200</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Lamb Rack Provençal</div><div class="menu-item-desc">Herbed crust, ratatouille</div></div><div class="menu-item-price">Rs. 4,200</div></div>
+    </div>
+    <div class="menu-cat">
+      <div class="menu-cat-name">Desserts</div>
+      <div class="menu-item"><div><div class="menu-item-name">Crème Brûlée</div><div class="menu-item-desc">Madagascan vanilla</div></div><div class="menu-item-price">Rs. 750</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Chocolate Fondant</div><div class="menu-item-desc">Salted caramel, praline</div></div><div class="menu-item-price">Rs. 850</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Seasonal Tart</div><div class="menu-item-desc">Chef's daily selection</div></div><div class="menu-item-price">Rs. 700</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="experience">
+    <div>
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">A Legacy of Culinary Excellence</h2>
+      <p style="font-size:0.85rem;line-height:1.9;color:var(--muted);max-width:480px;">Founded in 2009 by Chef Arif Mahmood, Salt & Pepper has set the benchmark for fine dining in Lahore. Every dish is a conversation between classical technique and bold local flavour.</p>
+      <div class="exp-stats">
+        <div class="stat"><div class="stat-num">15</div><div class="stat-label">Years in service</div></div>
+        <div class="stat"><div class="stat-num">4.9</div><div class="stat-label">Google rating</div></div>
+        <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Menu items</div></div>
+        <div class="stat"><div class="stat-num">3</div><div class="stat-label">Award wins</div></div>
+      </div>
+    </div>
+    <div class="exp-img">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Restaurant interior">
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="section-label" style="justify-content:center;">Find Us</div>
+  <h2 class="section-title">Visit Us Tonight</h2>
+  <p class="contact-sub">Reservations recommended. Walk-ins welcome for lunch.</p>
+  <div class="contact-grid">
+    <div class="contact-item"><h4>Address</h4><p>14-A, Gulberg III<br>Lahore, Punjab</p></div>
+    <div class="contact-item"><h4>Hours</h4><p>Lunch: 12pm – 3pm<br>Dinner: 7pm – 11pm</p></div>
+    <div class="contact-item"><h4>Phone</h4><p>0300-0000000</p></div>
+  </div>
+  <a href="https://wa.me/923000000000" class="whatsapp-btn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.112 1.524 5.842L0 24l6.338-1.499A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 01-5.001-1.37l-.36-.214-3.729.882.936-3.618-.235-.372A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+    Reserve via WhatsApp
+  </a>
+</section>
+
+<footer>© 2024 Salt & Pepper Fine Dining · Lahore · All rights reserved</footer>
+
+<script>
+  document.querySelector('.hamburger').addEventListener('click', function() {
+    const links = document.querySelector('.nav-links');
+    const reserve = document.querySelector('.nav-reserve');
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+      if(reserve) reserve.style.display = 'none';
+    } else {
+      links.style.display = 'flex';
+      links.style.flexDirection = 'column';
+      links.style.position = 'absolute';
+      links.style.top = '100%';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = 'var(--cream)';
+      links.style.padding = '1rem 5%';
+      links.style.borderBottom = '1px solid rgba(201,168,76,0.2)';
+    }
+  });
+</script>
+</body>
+</html>

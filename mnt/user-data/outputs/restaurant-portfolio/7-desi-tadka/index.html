@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desi Tadka – Ghar Jaisa Khana</title>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--mustard:#E8B84B;--maroon:#8B1A1A;--sage:#5C7A5C;--bg:#FEFAF4;--dark:#1E1206;--warm:#F5EDD8;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden;}
+  nav{position:fixed;top:0;z-index:100;width:100%;background:var(--maroon);padding:1rem 5%;display:flex;align-items:center;justify-content:space-between;}
+  .logo{color:var(--mustard);text-decoration:none;font-family:'Poppins',sans-serif;font-weight:700;font-size:1.4rem;line-height:1.1;}
+  .logo span{display:block;font-size:0.6rem;font-weight:300;color:rgba(255,255,255,0.6);letter-spacing:0.15em;text-transform:uppercase;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.82rem;font-weight:600;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--mustard);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--mustard);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:5rem 5% 4rem;gap:4rem;position:relative;overflow:hidden;}
+  .hero-bg-shape{position:absolute;right:-5%;top:0;width:50%;height:100%;background:var(--warm);clip-path:polygon(15% 0,100% 0,100% 100%,0 100%);z-index:0;}
+  .hero-left{position:relative;z-index:2;}
+  .urdu-tag{font-size:1.8rem;color:var(--maroon);margin-bottom:0.5rem;font-family:'Tiro Devanagari Hindi',serif;}
+  .hero-label{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);margin-bottom:1.5rem;font-weight:600;}
+  h1{font-size:clamp(2.5rem,5vw,4.5rem);font-weight:700;line-height:1.1;margin-bottom:1.25rem;color:var(--dark);}
+  h1 em{font-style:normal;color:var(--maroon);}
+  .hero-desc{font-size:0.9rem;line-height:1.8;color:#666;max-width:420px;margin-bottom:2.5rem;font-weight:300;}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-masala{display:inline-block;padding:0.9rem 2.25rem;background:var(--maroon);color:#fff;font-weight:700;font-size:0.82rem;text-decoration:none;border-radius:4px;transition:all 0.3s;}
+  .btn-masala:hover{background:#6d1414;transform:translateY(-2px);}
+  .btn-wa{display:inline-flex;align-items:center;gap:0.5rem;padding:0.9rem 2rem;background:#25D366;color:#fff;font-weight:700;font-size:0.82rem;text-decoration:none;border-radius:4px;transition:opacity 0.2s;}
+  .btn-wa:hover{opacity:0.85;}
+  .hero-right{position:relative;z-index:2;}
+  .food-collage{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+  .food-collage img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;}
+  .food-collage img:first-child{grid-column:1/-1;aspect-ratio:16/9;}
+
+  /* DAILY MENU */
+  .daily{padding:5rem 5%;background:var(--maroon);color:#fff;}
+  .daily-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem;}
+  .daily-header h2{font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;line-height:1.1;}
+  .daily-header h2 span{color:var(--mustard);}
+  .day-badge{background:var(--mustard);color:var(--dark);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:4px;}
+  .daily-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:rgba(255,255,255,0.1);}
+  .daily-item{background:rgba(255,255,255,0.05);padding:1.5rem;transition:background 0.2s;}
+  .daily-item:hover{background:rgba(255,255,255,0.1);}
+  .di-cat{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mustard);margin-bottom:0.75rem;font-weight:600;}
+  .di-name{font-size:1.1rem;font-weight:700;margin-bottom:0.3rem;}
+  .di-desc{font-size:0.78rem;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:0.75rem;}
+  .di-price{font-size:1rem;font-weight:700;color:var(--mustard);}
+
+  /* ABOUT */
+  .about{padding:5rem 5%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .about-text .eyebrow{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:1rem;}
+  .about-text h2{font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.2;margin-bottom:1.5rem;}
+  .about-text h2 span{color:var(--maroon);}
+  .about-text p{font-size:0.88rem;line-height:1.8;color:#666;font-weight:300;margin-bottom:1.25rem;}
+  .values{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem;}
+  .value{display:flex;gap:0.75rem;align-items:flex-start;}
+  .value-icon{width:36px;height:36px;background:var(--warm);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+  .value-text{font-size:0.8rem;font-weight:600;color:var(--dark);}
+  .about-img{position:relative;}
+  .about-img img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;}
+  .about-img-badge{position:absolute;bottom:-1rem;right:-1rem;background:var(--mustard);padding:1.25rem;border-radius:12px;text-align:center;color:var(--dark);}
+  .about-img-badge strong{display:block;font-size:2rem;font-weight:700;line-height:1;}
+  .about-img-badge small{font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
+
+  /* CONTACT */
+  .contact{padding:5rem 5%;background:var(--warm);}
+  .contact h2{font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--dark);margin-bottom:0.5rem;}
+  .contact .tagline{color:var(--sage);font-size:0.9rem;font-weight:600;margin-bottom:3rem;}
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;}
+  .contact-card{background:#fff;padding:1.75rem;border-radius:12px;box-shadow:0 2px 20px rgba(0,0,0,0.06);}
+  .cc-icon{font-size:1.8rem;margin-bottom:0.75rem;}
+  .cc-label{font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--sage);margin-bottom:0.4rem;}
+  .cc-text{font-size:0.9rem;font-weight:600;line-height:1.5;}
+
+  footer{background:var(--dark);text-align:center;padding:2rem;font-size:0.75rem;color:#555;letter-spacing:0.05em;}
+
+  @media(max-width:900px){
+    .hero,.about{grid-template-columns:1fr;}
+    .hero-bg-shape{display:none;}
+    .nav-links{display:none;}
+    .hamburger{display:flex;}
+  }
+  @media(max-width:500px){
+    .hero-actions{flex-direction:column;}
+    .values{grid-template-columns:1fr;}
+    .food-collage{grid-template-columns:1fr;}
+    .food-collage img:first-child{aspect-ratio:16/9;}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo">Desi Tadka<span>Ghar Jaisa Khana · Lahore</span></a>
+  <ul class="nav-links">
+    <li><a href="#daily">Today's Menu</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#contact">Find Us</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-left">
+    <div class="urdu-tag">گھر جیسا کھانا</div>
+    <div class="hero-label">Lahore · Home-Style Pakistani Cuisine</div>
+    <h1>Khana Jaise<br><em>Ammi Banati Hain.</em></h1>
+    <p class="hero-desc">Fresh, wholesome, and made with love every single day. No preservatives, no shortcuts — just the warmth of a proper Pakistani kitchen.</p>
+    <div class="hero-actions">
+      <a href="#daily" class="btn-masala">Today's Menu</a>
+      <a href="https://wa.me/923000000000" class="btn-wa">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.112 1.524 5.842L0 24l6.338-1.499A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 01-5.001-1.37l-.36-.214-3.729.882.936-3.618-.235-.372A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Order on WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="food-collage">
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=700&q=80" alt="Biryani">
+      <img src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=400&q=80" alt="Curry">
+      <img src="https://images.unsplash.com/photo-1631452180539-96aca7d48617?w=400&q=80" alt="Roti">
+    </div>
+  </div>
+</section>
+
+<section id="daily" class="daily">
+  <div class="daily-header">
+    <div>
+      <h2>Aaj Ka <span>Khana</span></h2>
+      <p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.5rem;">Fresh menu, posted daily at 10am</p>
+    </div>
+    <div class="day-badge">Monday Special</div>
+  </div>
+  <div class="daily-grid">
+    <div class="daily-item"><div class="di-cat">Dal & Lentils</div><div class="di-name">Dal Makhni</div><div class="di-desc">Black lentils slow cooked overnight, butter & cream finishing</div><div class="di-price">Rs. 320</div></div>
+    <div class="daily-item"><div class="di-cat">Main Course</div><div class="di-name">Aloo Gosht</div><div class="di-desc">Tender mutton & potatoes in thick masala gravy</div><div class="di-price">Rs. 550</div></div>
+    <div class="daily-item"><div class="di-cat">Rice</div><div class="di-name">Plain Pulao</div><div class="di-desc">Fragrant long-grain basmati with whole spices</div><div class="di-price">Rs. 220</div></div>
+    <div class="daily-item"><div class="di-cat">Bread</div><div class="di-name">Tandoori Roti</div><div class="di-desc">Fresh from the clay oven, served hot</div><div class="di-price">Rs. 40</div></div>
+    <div class="daily-item"><div class="di-cat">Dessert</div><div class="di-name">Kheer</div><div class="di-desc">Rice pudding with cardamom, pistachios & rose water</div><div class="di-price">Rs. 180</div></div>
+    <div class="daily-item"><div class="di-cat">Full Meal Deal</div><div class="di-name">Thali Set</div><div class="di-desc">Dal + Sabzi + Roti x3 + Rice + Salad + Dessert</div><div class="di-price">Rs. 850</div></div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div>
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Kitchen" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:16px;">
+  </div>
+  <div class="about-text">
+    <div class="eyebrow">Our Story</div>
+    <h2>Khana Banane Ka<br><span>Junoon</span></h2>
+    <p>Desi Tadka was born from a simple belief: that the best Pakistani food is still made at home. We set out to bring that exact warmth to your table — every single day.</p>
+    <p>Our cooks aren't chefs. They're home cooks, mothers, and grandmothers who've been perfecting these recipes for decades. That's the difference you taste.</p>
+    <div class="values">
+      <div class="value"><div class="value-icon">🌿</div><div class="value-text">No preservatives ever</div></div>
+      <div class="value"><div class="value-icon">🔥</div><div class="value-text">Cooked fresh daily</div></div>
+      <div class="value"><div class="value-icon">🏠</div><div class="value-text">Home-style recipes</div></div>
+      <div class="value"><div class="value-icon">💚</div><div class="value-text">Made with love</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Aao Mil Ke Khate Hain</h2>
+  <p class="tagline">Come hungry, leave happy — or we've done something wrong.</p>
+  <div class="contact-grid">
+    <div class="contact-card"><div class="cc-icon">📍</div><div class="cc-label">Address</div><div class="cc-text">Near Ichra Bazar<br>Lahore</div></div>
+    <div class="contact-card"><div class="cc-icon">⏰</div><div class="cc-label">Hours</div><div class="cc-text">Lunch: 12pm–4pm<br>Dinner: 7pm–11pm</div></div>
+    <div class="contact-card"><div class="cc-icon">📞</div><div class="cc-label">Call / WhatsApp</div><div class="cc-text">0300-0000000</div></div>
+    <div class="contact-card"><div class="cc-icon">🛵</div><div class="cc-label">Delivery</div><div class="cc-text">WhatsApp your order,<br>delivered hot</div></div>
+  </div>
+</section>
+
+<footer>© 2024 Desi Tadka · Lahore · گھر جیسا کھانا ہمیشہ</footer>
+
+<script>
+  document.querySelector('.hamburger').addEventListener('click',function(){
+    const links=document.querySelector('.nav-links');
+    if(links.style.display==='flex'){links.style.display='none';}
+    else{links.style.cssText='display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--maroon);padding:1rem 5%;gap:1rem;';}
+  });
+</script>
+</body>
+</html>

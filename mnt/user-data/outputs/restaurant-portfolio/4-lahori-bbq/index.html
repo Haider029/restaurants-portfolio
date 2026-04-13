@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lahori BBQ – Grill Masters Since 1985</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root{--fire:#FF4500;--ember:#FF8C00;--smoke:#2A2A2A;--ash:#1A1A1A;--cream:#FFF5E6;--bone:#E8D9C0;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Source Serif 4',serif;background:var(--ash);color:var(--cream);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 5%;background:rgba(26,26,26,0.96);border-bottom:2px solid var(--fire);}
+  .logo{font-family:'Oswald',sans-serif;font-size:1.6rem;font-weight:700;color:var(--fire);text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;}
+  .logo small{display:block;font-size:0.45rem;color:var(--ember);letter-spacing:0.25em;font-weight:400;margin-top:-3px;}
+  .nav-links{display:flex;gap:2.5rem;list-style:none;}
+  .nav-links a{color:#aaa;text-decoration:none;font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--fire);}
+  .nav-cta{padding:0.6rem 1.5rem;background:var(--fire);color:#fff;font-family:'Oswald',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;}
+  .nav-cta:hover{background:var(--ember);}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--fire);}
+
+  /* HERO */
+  .hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;padding:0 5% 5rem;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=1400&q=70') center/cover no-repeat;}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,5,0,0.95) 0%,rgba(10,5,0,0.6) 50%,rgba(10,5,0,0.2) 100%);}
+  .hero-content{position:relative;z-index:2;max-width:700px;}
+  .fire-badge{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:1.5rem;}
+  .fire-badge::before{content:'🔥';}
+  h1{font-family:'Oswald',sans-serif;font-size:clamp(3.5rem,8vw,7rem);font-weight:700;line-height:0.95;letter-spacing:0.02em;text-transform:uppercase;margin-bottom:1.5rem;}
+  h1 .fire-text{color:var(--fire);display:block;}
+  .hero-p{font-size:1rem;line-height:1.7;color:#ccc;max-width:500px;margin-bottom:2.5rem;font-style:italic;font-weight:300;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-fire{display:inline-block;padding:1rem 2.5rem;background:var(--fire);color:#fff;font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border:2px solid var(--fire);transition:all 0.3s;}
+  .btn-fire:hover{background:transparent;color:var(--fire);}
+  .btn-ghost{display:inline-block;padding:1rem 2.5rem;background:transparent;color:#fff;font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(255,255,255,0.3);transition:all 0.3s;}
+  .btn-ghost:hover{border-color:var(--fire);color:var(--fire);}
+
+  /* RIBBON */
+  .ribbon{background:var(--fire);padding:0.9rem;text-align:center;font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:0.25em;text-transform:uppercase;}
+
+  /* MENU */
+  .menu{padding:5rem 5%;background:var(--smoke);}
+  .section-eyebrow{font-family:'Oswald',sans-serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem;}
+  .section-h{font-family:'Oswald',sans-serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:3rem;}
+  .menu-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;}
+  .menu-categories{display:flex;flex-direction:column;gap:1.5rem;}
+  .menu-category{border-left:3px solid var(--fire);padding-left:1.5rem;}
+  .cat-title{font-family:'Oswald',sans-serif;font-size:1rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem;}
+  .menu-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+  .menu-row:last-child{border-bottom:none;}
+  .item-name{font-size:1rem;font-weight:400;}
+  .item-detail{font-size:0.75rem;color:#777;font-style:italic;margin-top:0.2rem;}
+  .item-price{color:var(--ember);font-family:'Oswald',sans-serif;font-size:1rem;white-space:nowrap;margin-left:1rem;}
+  .menu-feature{position:sticky;top:6rem;height:fit-content;}
+  .feat-img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:saturate(1.2);}
+  .feat-caption{background:var(--fire);padding:1.5rem;font-family:'Oswald',sans-serif;}
+  .feat-caption h3{font-size:1.5rem;letter-spacing:0.05em;text-transform:uppercase;}
+  .feat-caption p{font-size:0.8rem;opacity:0.85;margin-top:0.5rem;font-family:'Source Serif 4',serif;font-style:italic;font-weight:300;}
+
+  /* ABOUT */
+  .about{padding:5rem 5%;background:var(--ash);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .about-media{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:0.75rem;}
+  .about-media img:first-child{grid-column:1/-1;width:100%;height:250px;object-fit:cover;}
+  .about-media img{width:100%;height:160px;object-fit:cover;}
+  .about h2{font-family:'Oswald',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;letter-spacing:0.03em;text-transform:uppercase;margin-bottom:1.5rem;line-height:1.1;}
+  .about h2 em{color:var(--fire);font-style:normal;}
+  .about p{color:#aaa;line-height:1.8;font-size:0.92rem;margin-bottom:1.25rem;font-weight:300;font-style:italic;}
+  .about-awards{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap;}
+  .award{text-align:center;}
+  .award-num{font-family:'Oswald',sans-serif;font-size:2.5rem;color:var(--fire);line-height:1;}
+  .award-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:#666;margin-top:0.3rem;}
+
+  /* CONTACT */
+  .contact{background:var(--fire);padding:5rem 5%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .contact h2{font-family:'Oswald',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;letter-spacing:0.03em;text-transform:uppercase;color:#fff;margin-bottom:0.5rem;}
+  .contact-tagline{font-style:italic;font-weight:300;color:rgba(255,255,255,0.75);margin-bottom:2rem;font-size:1rem;}
+  .contact-info-block{display:flex;flex-direction:column;gap:1.25rem;}
+  .c-row{display:flex;align-items:center;gap:1rem;font-size:0.92rem;}
+  .c-icon{font-size:1.2rem;}
+  .c-text{color:rgba(255,255,255,0.9);}
+  .map-box{background:rgba(0,0,0,0.2);height:300px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);font-family:'Oswald',sans-serif;letter-spacing:0.1em;text-transform:uppercase;font-size:0.85rem;}
+  footer{background:#050505;text-align:center;padding:2rem;font-size:0.75rem;color:#333;font-family:'Oswald',sans-serif;letter-spacing:0.15em;text-transform:uppercase;}
+
+  @media(max-width:900px){
+    .menu-layout,.about,.contact{grid-template-columns:1fr;}
+    .menu-feature{position:static;}
+    .nav-links,.nav-cta{display:none;}
+    .hamburger{display:flex;}
+  }
+  @media(max-width:500px){
+    .hero-btns{flex-direction:column;}
+    .about-media img:first-child{height:200px;}
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo">Lahori BBQ<small>Grill Masters Since 1985</small></a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#about">Our Legacy</a></li>
+    <li><a href="#contact">Find Us</a></li>
+  </ul>
+  <a href="https://wa.me/923000000000" class="nav-cta">Order Now</a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="fire-badge">Lahore's #1 BBQ Destination</div>
+    <h1>WHERE<br>FIRE MEETS<br><span class="fire-text">FLAVOUR.</span></h1>
+    <p class="hero-p">39 years of smoke, fire and unstoppable flavour. The original Lahori BBQ — nothing compares, nothing comes close.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-fire">View Full Menu</a>
+      <a href="https://wa.me/923000000000" class="btn-ghost">WhatsApp Order</a>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon">🔥 Open Daily: 5pm – 2am · DHA, Gulberg & Model Town · 0300-0000000 🔥</div>
+
+<section id="menu" class="menu">
+  <div class="section-eyebrow">Off The Grill</div>
+  <h2 class="section-h">Our Signature Menu</h2>
+  <div class="menu-layout">
+    <div class="menu-categories">
+      <div class="menu-category">
+        <div class="cat-title">BBQ Classics</div>
+        <div class="menu-row"><div><div class="item-name">Seekh Kabab</div><div class="item-detail">Spiced minced beef on charcoal</div></div><div class="item-price">Rs. 600/plate</div></div>
+        <div class="menu-row"><div><div class="item-name">Chapli Kabab</div><div class="item-detail">Peshawari style, pomegranate seeds</div></div><div class="item-price">Rs. 550/plate</div></div>
+        <div class="menu-row"><div><div class="item-name">Tikka Boti</div><div class="item-detail">Marinated 24hrs, fire-grilled</div></div><div class="item-price">Rs. 800/half</div></div>
+        <div class="menu-row"><div><div class="item-name">Malai Boti</div><div class="item-detail">Cream marinated, tender chicken</div></div><div class="item-price">Rs. 850/half</div></div>
+      </div>
+      <div class="menu-category">
+        <div class="cat-title">Karahi & Curries</div>
+        <div class="menu-row"><div><div class="item-name">Mutton Karahi</div><div class="item-detail">Tomato base, green chilli, ginger</div></div><div class="item-price">Rs. 2,200/kg</div></div>
+        <div class="menu-row"><div><div class="item-name">Chicken Karahi</div><div class="item-detail">White or red, your choice</div></div><div class="item-price">Rs. 1,400/kg</div></div>
+        <div class="menu-row"><div><div class="item-name">Lamb Chops</div><div class="item-detail">Slow marinated, pan-seared finish</div></div><div class="item-price">Rs. 3,000/kg</div></div>
+      </div>
+      <div class="menu-category">
+        <div class="cat-title">Sides</div>
+        <div class="menu-row"><div><div class="item-name">Naan (Tandoor)</div><div class="item-detail">Fresh from the clay oven</div></div><div class="item-price">Rs. 50</div></div>
+        <div class="menu-row"><div><div class="item-name">Raita</div><div class="item-detail">Cucumber & mint yoghurt</div></div><div class="item-price">Rs. 100</div></div>
+        <div class="menu-row"><div><div class="item-name">Fresh Salad</div><div class="item-detail">Onion, tomato, lemon</div></div><div class="item-price">Rs. 120</div></div>
+      </div>
+    </div>
+    <div class="menu-feature">
+      <img class="feat-img" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80" alt="BBQ">
+      <div class="feat-caption">
+        <h3>Tonight's Special</h3>
+        <p>Full BBQ Platter for 4: Seekh, Tikka, Boti & Naan — Rs. 3,500 only</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="about-media">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=700&q=70" alt="Restaurant">
+    <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400&q=70" alt="BBQ Grill">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=70" alt="Food">
+  </div>
+  <div>
+    <div class="section-eyebrow">Our Legacy</div>
+    <h2>39 Years Of <em>Fire</em></h2>
+    <p>It started with one grill, one man, and a single recipe passed down from his father. Ustad Ghulam Hussain lit the first fire at Lahori BBQ in 1985. Today, his sons carry the flame.</p>
+    <p>We've never changed our marinade. We still cook on the same charcoal. Because some things are better left exactly as they are.</p>
+    <div class="about-awards">
+      <div class="award"><div class="award-num">39</div><div class="award-label">Years open</div></div>
+      <div class="award"><div class="award-num">4.9</div><div class="award-label">Google rating</div></div>
+      <div class="award"><div class="award-num">3</div><div class="award-label">Locations</div></div>
+      <div class="award"><div class="award-num">1985</div><div class="award-label">Est. year</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div>
+    <h2>Come Hungry.</h2>
+    <p class="contact-tagline">Leave with no regrets, or your money back.</p>
+    <div class="contact-info-block">
+      <div class="c-row"><div class="c-icon">📍</div><div class="c-text">Main Boulevard, DHA Phase 5, Lahore<br>Also in Gulberg & Model Town</div></div>
+      <div class="c-row"><div class="c-icon">⏰</div><div class="c-text">Daily: 5:00 PM – 2:00 AM</div></div>
+      <div class="c-row"><div class="c-icon">📞</div><div class="c-text">0300-0000000</div></div>
+      <div class="c-row"><div class="c-icon">💬</div><div class="c-text">WhatsApp orders & reservations</div></div>
+    </div>
+    <div style="margin-top:2rem;">
+      <a href="https://wa.me/923000000000" style="display:inline-flex;align-items:center;gap:0.75rem;padding:1rem 2rem;background:#fff;color:var(--fire);font-family:'Oswald',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:opacity 0.2s;">📲 WhatsApp Order</a>
+    </div>
+  </div>
+  <div class="map-box">📍 Google Map Embed Here</div>
+</section>
+
+<footer>© 2024 Lahori BBQ · Est. 1985 · Lahore · All Rights Reserved</footer>
+
+<script>
+  document.querySelector('.hamburger').addEventListener('click',function(){
+    const links=document.querySelector('.nav-links');
+    if(links.style.display==='flex'){links.style.display='none';}
+    else{links.style.cssText='display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#1a1a1a;padding:1rem 5%;gap:1rem;border-top:2px solid var(--fire);';}
+  });
+</script>
+</body>
+</html>

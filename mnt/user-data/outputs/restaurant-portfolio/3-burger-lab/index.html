@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burger Lab – Craft Burgers Lahore</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--yellow:#FFE600;--black:#0A0A0A;--white:#FAFAFA;--red:#E5262B;--gray:#1A1A1A;}
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'DM Sans',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;cursor:none;}
+
+  .cursor{position:fixed;width:12px;height:12px;background:var(--yellow);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--yellow);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.15s,width 0.3s,height 0.3s;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4%;background:rgba(10,10,10,0.95);border-bottom:1px solid #222;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--yellow);letter-spacing:0.05em;text-decoration:none;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:#aaa;text-decoration:none;font-size:0.82rem;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--yellow);}
+  .order-now-btn{padding:0.6rem 1.5rem;background:var(--yellow);color:var(--black);font-weight:700;font-size:0.8rem;text-decoration:none;letter-spacing:0.05em;transition:opacity 0.2s;}
+  .order-now-btn:hover{opacity:0.85;}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--yellow);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:5rem 4% 3rem;gap:3rem;position:relative;overflow:hidden;}
+  .hero-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none;}
+  .hero-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(8rem,18vw,16rem);line-height:0.85;color:#111;position:absolute;right:-2%;top:50%;transform:translateY(-50%);pointer-events:none;user-select:none;}
+  .hero-left{position:relative;z-index:2;}
+  .hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:#1a1a1a;border:1px solid #333;padding:0.4rem 1rem;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#aaa;margin-bottom:1.5rem;}
+  .hero-tag span{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,8vw,7.5rem);line-height:0.9;letter-spacing:0.02em;margin-bottom:1.5rem;}
+  h1 .line2{color:var(--yellow);display:block;}
+  .hero-desc{color:#777;font-size:0.9rem;line-height:1.8;max-width:420px;margin-bottom:2.5rem;}
+  .hero-actions{display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
+  .btn-lab{display:inline-block;padding:1rem 2.5rem;background:var(--yellow);color:var(--black);font-weight:700;font-size:0.9rem;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;}
+  .btn-lab:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--red);}
+  .phone-link{font-size:0.82rem;color:#aaa;text-decoration:none;border-bottom:1px solid #444;padding-bottom:2px;transition:color 0.2s,border-color 0.2s;}
+  .phone-link:hover{color:var(--yellow);border-color:var(--yellow);}
+  .hero-right{position:relative;z-index:2;}
+  .burger-showcase{aspect-ratio:1;max-width:500px;width:100%;position:relative;margin:auto;}
+  .burger-ring{position:absolute;inset:0;border:1px solid #222;border-radius:50%;}
+  .burger-ring:nth-child(2){inset:10%;border-style:dashed;border-color:#333;animation:spin 20s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .burger-img{width:90%;aspect-ratio:1;object-fit:cover;border-radius:50%;position:absolute;top:5%;left:5%;}
+  .burger-label{position:absolute;top:0;right:10%;background:var(--yellow);color:var(--black);font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.05em;padding:0.5rem 1rem;transform:rotate(12deg);}
+
+  /* MENU */
+  .menu-section{padding:5rem 4%;background:var(--gray);}
+  .menu-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem;}
+  .menu-header h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:0.03em;}
+  .menu-header h2 span{color:var(--yellow);}
+  .menu-tabs{display:flex;gap:0;list-style:none;margin-bottom:2.5rem;border-bottom:1px solid #333;}
+  .menu-tabs li a{display:block;padding:0.75rem 1.5rem;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#666;text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.2s,border-color 0.2s;}
+  .menu-tabs li a.active,.menu-tabs li a:hover{color:var(--yellow);border-color:var(--yellow);}
+  .burgers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:#333;}
+  .burger-card{background:var(--gray);padding:1.5rem;transition:background 0.3s;display:flex;gap:1.25rem;align-items:center;}
+  .burger-card:hover{background:#222;}
+  .bc-img{width:90px;height:90px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid #333;}
+  .bc-info{flex:1;}
+  .bc-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.03em;margin-bottom:0.3rem;}
+  .bc-desc{font-size:0.78rem;color:#777;line-height:1.5;margin-bottom:0.75rem;}
+  .bc-footer{display:flex;align-items:center;justify-content:space-between;}
+  .bc-price{font-weight:700;color:var(--yellow);font-size:1rem;}
+  .bc-add{width:28px;height:28px;background:var(--yellow);color:var(--black);border:none;font-size:1.2rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
+  .bc-add:hover{background:var(--red);}
+
+  /* MARQUEE */
+  .marquee{background:var(--yellow);overflow:hidden;padding:0.75rem 0;}
+  .marquee-inner{display:flex;gap:3rem;animation:marquee 18s linear infinite;white-space:nowrap;}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+  .marquee-item{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.08em;color:var(--black);}
+
+  /* INFO */
+  .info{padding:5rem 4%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .info-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;}
+  .i-stat{padding:1.5rem;border:1px solid #222;transition:border-color 0.3s;}
+  .i-stat:hover{border-color:var(--yellow);}
+  .i-stat-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--yellow);line-height:1;}
+  .i-stat-label{font-size:0.72rem;color:#666;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;}
+  .info-right h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,3.5rem);line-height:1;margin-bottom:1.5rem;}
+  .info-right h2 em{font-style:normal;color:var(--yellow);}
+  .hours-grid{display:grid;grid-template-columns:auto 1fr;gap:0.5rem 2rem;font-size:0.85rem;margin-top:1.5rem;}
+  .hours-day{color:#666;}
+  .hours-time{color:var(--white);}
+  .location-link{display:inline-flex;align-items:center;gap:0.5rem;margin-top:2rem;padding:0.85rem 2rem;border:1px solid var(--yellow);color:var(--yellow);text-decoration:none;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.3s;}
+  .location-link:hover{background:var(--yellow);color:var(--black);}
+
+  footer{background:#050505;text-align:center;padding:2rem;font-size:0.75rem;color:#333;letter-spacing:0.1em;}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;padding-top:6rem;}
+    .hero-right{order:-1;}
+    .hero-num{font-size:30vw;right:-5%;}
+    .info{grid-template-columns:1fr;}
+    .nav-links,.order-now-btn{display:none;}
+    .hamburger{display:flex;}
+  }
+  @media(max-width:500px){
+    .hero-actions{flex-direction:column;align-items:flex-start;}
+    .info-stats{grid-template-columns:1fr;}
+    .menu-tabs li a{padding:0.75rem 0.85rem;font-size:0.7rem;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="logo">Burger Lab</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#info">Locations</a></li>
+  </ul>
+  <a href="https://wa.me/923000000000" class="order-now-btn">Order Now</a>
+  <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-num">BL</div>
+  <div class="hero-left">
+    <div class="hero-tag"><span></span> Now Open · DHA Phase 6</div>
+    <h1>CRAFT<span class="line2">BURGERS.</span>NO LIMITS.</h1>
+    <p class="hero-desc">We don't do fast food. We do <em>good</em> food, fast. Every burger is hand-pressed, fresh-assembled, made to order. No shortcuts, ever.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-lab">Build Your Burger</a>
+      <a href="tel:03000000000" class="phone-link">📞 0300-0000000</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="burger-showcase">
+      <div class="burger-ring"></div>
+      <div class="burger-ring"></div>
+      <img class="burger-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt="Burger">
+      <div class="burger-label">🔥 HOT</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="marquee-item">SMASH BURGERS</span><span class="marquee-item">★</span>
+    <span class="marquee-item">HAND-PRESSED PATTIES</span><span class="marquee-item">★</span>
+    <span class="marquee-item">FRESH INGREDIENTS</span><span class="marquee-item">★</span>
+    <span class="marquee-item">LOADED FRIES</span><span class="marquee-item">★</span>
+    <span class="marquee-item">THICK MILKSHAKES</span><span class="marquee-item">★</span>
+    <span class="marquee-item">SMASH BURGERS</span><span class="marquee-item">★</span>
+    <span class="marquee-item">HAND-PRESSED PATTIES</span><span class="marquee-item">★</span>
+    <span class="marquee-item">FRESH INGREDIENTS</span><span class="marquee-item">★</span>
+    <span class="marquee-item">LOADED FRIES</span><span class="marquee-item">★</span>
+    <span class="marquee-item">THICK MILKSHAKES</span><span class="marquee-item">★</span>
+  </div>
+</div>
+
+<section id="menu" class="menu-section">
+  <div class="menu-header">
+    <h2>THE <span>MENU</span></h2>
+  </div>
+  <ul class="menu-tabs">
+    <li><a href="#" class="active">Burgers</a></li>
+    <li><a href="#">Sides</a></li>
+    <li><a href="#">Shakes</a></li>
+    <li><a href="#">Deals</a></li>
+  </ul>
+  <div class="burgers-grid">
+    <div class="burger-card"><img class="bc-img" src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&q=70" alt="Classic"><div class="bc-info"><div class="bc-name">The Classic Lab</div><div class="bc-desc">Double smash, American cheese, pickles, secret sauce</div><div class="bc-footer"><div class="bc-price">Rs. 750</div><button class="bc-add" onclick="alert('Added!')" >+</button></div></div></div>
+    <div class="burger-card"><img class="bc-img" src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=200&q=70" alt="Spicy"><div class="bc-info"><div class="bc-name">Volcano Stack</div><div class="bc-desc">Triple patty, jalapeños, ghost pepper mayo, crispy onion</div><div class="bc-footer"><div class="bc-price">Rs. 1,100</div><button class="bc-add" onclick="alert('Added!')">+</button></div></div></div>
+    <div class="burger-card"><img class="bc-img" src="https://images.unsplash.com/photo-1562802378-063ec186a863?w=200&q=70" alt="Chicken"><div class="bc-info"><div class="bc-name">Crispy Chicken</div><div class="bc-desc">Buttermilk fried chicken, coleslaw, honey mustard</div><div class="bc-footer"><div class="bc-price">Rs. 850</div><button class="bc-add" onclick="alert('Added!')">+</button></div></div></div>
+    <div class="burger-card"><img class="bc-img" src="https://images.unsplash.com/photo-1639024471283-03518883512d?w=200&q=70" alt="Truffle"><div class="bc-info"><div class="bc-name">Black Truffle</div><div class="bc-desc">Wagyu blend, truffle aioli, caramelised onion, brie</div><div class="bc-footer"><div class="bc-price">Rs. 1,450</div><button class="bc-add" onclick="alert('Added!')">+</button></div></div></div>
+  </div>
+</section>
+
+<section id="info" class="info">
+  <div>
+    <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:0.75rem;">By the numbers</div>
+    <div class="info-stats">
+      <div class="i-stat"><div class="i-stat-num">47</div><div class="i-stat-label">Burger combos</div></div>
+      <div class="i-stat"><div class="i-stat-num">4.8</div><div class="i-stat-label">Google rating</div></div>
+      <div class="i-stat"><div class="i-stat-num">3</div><div class="i-stat-label">Locations</div></div>
+      <div class="i-stat"><div class="i-stat-num">500+</div><div class="i-stat-label">Daily orders</div></div>
+    </div>
+  </div>
+  <div class="info-right">
+    <h2>FIND YOUR NEAREST <em>LAB</em></h2>
+    <div class="hours-grid">
+      <span class="hours-day">Mon – Thu</span><span class="hours-time">12:00 PM – 12:00 AM</span>
+      <span class="hours-day">Fri – Sat</span><span class="hours-time">12:00 PM – 2:00 AM</span>
+      <span class="hours-day">Sunday</span><span class="hours-time">1:00 PM – 12:00 AM</span>
+    </div>
+    <a href="https://wa.me/923000000000" class="location-link">📍 Get Directions</a>
+  </div>
+</section>
+
+<footer>© 2024 BURGER LAB · LAHORE · ALL RIGHTS RESERVED · NO REGRETS</footer>
+
+<script>
+  const c=document.getElementById('cursor'),r=document.getElementById('cursorRing');
+  document.addEventListener('mousemove',e=>{c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';setTimeout(()=>{r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';},80);});
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>{r.style.width='60px';r.style.height='60px';});el.addEventListener('mouseleave',()=>{r.style.width='36px';r.style.height='36px';});});
+  document.querySelector('.hamburger').addEventListener('click',function(){
+    const links=document.querySelector('.nav-links');
+    if(links.style.display==='flex'){links.style.display='none';}
+    else{links.style.cssText='display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:#0a0a0a;padding:1rem 4%;gap:1rem;border-bottom:1px solid #222;';}
+  });
+  document.querySelectorAll('.menu-tabs a').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();document.querySelectorAll('.menu-tabs a').forEach(x=>x.classList.remove('active'));this.classList.add('active');});});
+</script>
+</body>
+</html>
